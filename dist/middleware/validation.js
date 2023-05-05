@@ -8,18 +8,18 @@ const CreateVideoValidation = (req, res, next) => {
     if (req.body) {
         if (!(0, validation_1.IsString)(title) || !(0, validation_1.MaxLength)(title, 40)) {
             message.push({
-                message: 'Type of filed must be string or length is too long',
-                field: 'title',
+                message: "Type of filed must be string or length is too long",
+                field: "title",
             });
         }
         if (!(0, validation_1.IsString)(author) || !(0, validation_1.MaxLength)(author, 20)) {
             message.push({
-                message: 'Type of filed must be string or length is too long',
-                field: 'author',
+                message: "Type of filed must be string or length is too long",
+                field: "author",
             });
         }
         if (message.length) {
-            return res.status(400).json(message);
+            return res.status(400).json({ errorMessage: message });
         }
     }
     next();
@@ -31,36 +31,36 @@ const UpdateVideoValidation = (req, res, next) => {
     if (req.body) {
         if (!(0, validation_1.IsString)(title) || !(0, validation_1.MaxLength)(title, 40)) {
             message.push({
-                message: 'Type of filed must be string or length is too long',
-                field: 'title',
+                message: "Type of filed must be string or length is too long",
+                field: "title",
             });
         }
         if (!(0, validation_1.IsString)(author) || !(0, validation_1.MaxLength)(author, 20)) {
             message.push({
-                message: 'Type of filed must be string or length is too long',
-                field: 'author',
+                message: "Type of filed must be string or length is too long",
+                field: "author",
             });
         }
-        if (!(typeof canBeDownloaded === 'boolean')) {
+        if (!(typeof canBeDownloaded === "boolean")) {
             message.push({
-                message: 'Type of filed must be boolean',
-                field: 'canBeDownloaded',
+                message: "Type of filed must be boolean",
+                field: "canBeDownloaded",
             });
         }
         if (!(0, validation_1.validateInt32)(minAgeRestriction)) {
             message.push({
-                message: 'Type of filed must be integer or age between 1 and 18',
-                field: 'minAgeRestriction',
+                message: "Type of filed must be integer or age between 1 and 18",
+                field: "minAgeRestriction",
             });
         }
         if (!(0, validation_1.IsString)(publicationDate) && !(0, validation_1.validateDateTime)(publicationDate)) {
             message.push({
-                message: 'Type of date must be string and date format must be YYYY-MM-DDTHH:mm:ss.sssZ',
-                field: 'publicationDate',
+                message: "Type of date must be string and date format must be YYYY-MM-DDTHH:mm:ss.sssZ",
+                field: "publicationDate",
             });
         }
         if (message.length) {
-            return res.status(400).json(message);
+            return res.status(400).json({ errorMessage: message });
         }
     }
     next();

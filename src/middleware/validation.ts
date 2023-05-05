@@ -1,10 +1,10 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from "express";
 import {
   IsString,
   MaxLength,
   validateInt32,
   validateDateTime,
-} from '../validation/validation';
+} from "../validation/validation";
 
 export const CreateVideoValidation = (
   req: Request,
@@ -16,18 +16,18 @@ export const CreateVideoValidation = (
   if (req.body) {
     if (!IsString(title) || !MaxLength(title, 40)) {
       message.push({
-        message: 'Type of filed must be string or length is too long',
-        field: 'title',
+        message: "Type of filed must be string or length is too long",
+        field: "title",
       });
     }
     if (!IsString(author) || !MaxLength(author, 20)) {
       message.push({
-        message: 'Type of filed must be string or length is too long',
-        field: 'author',
+        message: "Type of filed must be string or length is too long",
+        field: "author",
       });
     }
     if (message.length) {
-      return res.status(400).json(message);
+      return res.status(400).json({ errorMessage: message });
     }
   }
   next();
@@ -44,37 +44,37 @@ export const UpdateVideoValidation = (
   if (req.body) {
     if (!IsString(title) || !MaxLength(title, 40)) {
       message.push({
-        message: 'Type of filed must be string or length is too long',
-        field: 'title',
+        message: "Type of filed must be string or length is too long",
+        field: "title",
       });
     }
     if (!IsString(author) || !MaxLength(author, 20)) {
       message.push({
-        message: 'Type of filed must be string or length is too long',
-        field: 'author',
+        message: "Type of filed must be string or length is too long",
+        field: "author",
       });
     }
-    if (!(typeof canBeDownloaded === 'boolean')) {
+    if (!(typeof canBeDownloaded === "boolean")) {
       message.push({
-        message: 'Type of filed must be boolean',
-        field: 'canBeDownloaded',
+        message: "Type of filed must be boolean",
+        field: "canBeDownloaded",
       });
     }
     if (!validateInt32(minAgeRestriction)) {
       message.push({
-        message: 'Type of filed must be integer or age between 1 and 18',
-        field: 'minAgeRestriction',
+        message: "Type of filed must be integer or age between 1 and 18",
+        field: "minAgeRestriction",
       });
     }
     if (!IsString(publicationDate) && !validateDateTime(publicationDate)) {
       message.push({
         message:
-          'Type of date must be string and date format must be YYYY-MM-DDTHH:mm:ss.sssZ',
-        field: 'publicationDate',
+          "Type of date must be string and date format must be YYYY-MM-DDTHH:mm:ss.sssZ",
+        field: "publicationDate",
       });
     }
     if (message.length) {
-      return res.status(400).json(message);
+      return res.status(400).json({ errorMessage: message });
     }
   }
   next();

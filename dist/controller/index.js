@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const videos_controller_1 = __importDefault(require("./videos.controller"));
 const router = express_1.default.Router();
-router.use('/video', videos_controller_1.default);
+router.use("/videos", videos_controller_1.default);
 exports.default = router;

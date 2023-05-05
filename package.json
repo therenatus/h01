@@ -7,7 +7,7 @@
     "test": "node --inspect dist/src/index.js",
     "start:dev": "nodemon dist/index.js",
     "watch": "yarn tsc -w",
-    "build": "npx tsc"
+    "build": "tsc"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
