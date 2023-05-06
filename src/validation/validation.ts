@@ -46,9 +46,11 @@ export const validationFormat = (req: string[]): boolean => {
   ];
   let valid: boolean = true;
   req.map((item) => {
-    if (validFormat.includes(item)) {
+    if (!validFormat.includes(item)) {
       valid = false;
     }
   });
   return valid;
 };
+
+console.log(validationFormat(["P144"]));
