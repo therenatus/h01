@@ -4,6 +4,7 @@ import {
   MaxLength,
   validateInt32,
   validateDateTime,
+  validationFormat,
 } from "../validation/validation";
 
 export const CreateVideoValidation = (
@@ -11,7 +12,7 @@ export const CreateVideoValidation = (
   res: Response,
   next: NextFunction
 ) => {
-  const { title, author } = req.body;
+  const { title, author, availableResolutions } = req.body;
   let message: { message: string; field: string }[] = [];
   if (req.body) {
     if (!IsString(title) || !MaxLength(title, 40)) {
@@ -26,6 +27,12 @@ export const CreateVideoValidation = (
         field: "author",
       });
     }
+    if (!validationFormat(availableResolutions)) {
+      message.push({
+        message: "Invalid available format",
+        field: "availableResolutions",
+      });
+    }
     if (message.length) {
       return res.status(400).send({ errorsMessages: message });
     }
@@ -38,8 +45,14 @@ export const UpdateVideoValidation = (
   res: Response,
   next: NextFunction
 ) => {
-  const { title, author, canBeDownloaded, minAgeRestriction, publicationDate } =
-    req.body;
+  const {
+    title,
+    author,
+    canBeDownloaded,
+    minAgeRestriction,
+    publicationDate,
+    availableResolutions,
+  } = req.body;
   let message: { message: string; field: string }[] = [];
   if (req.body) {
     if (!IsString(title) || !MaxLength(title, 40)) {
@@ -71,6 +84,12 @@ export const UpdateVideoValidation = (
         message:
           "Type of date must be string and date format must be YYYY-MM-DDTHH:mm:ss.sssZ",
         field: "publicationDate",
+      });
+    }
+    if (!validationFormat(availableResolutions)) {
+      message.push({
+        message: "Invalid available format",
+        field: "availableResolutions",
       });
     }
     if (message.length) {

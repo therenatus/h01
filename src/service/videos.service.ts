@@ -54,7 +54,7 @@ class VideosService {
 
   async deleteOne(req: Request, res: Response) {
     if (!req.params.id) {
-      res.status(404).send();
+      res.status(200).send();
     }
     const newVideos = data.filter((video) => video.id !== +req.params.id);
     if (data.length > newVideos.length) {
@@ -62,11 +62,6 @@ class VideosService {
     } else {
       res.status(404).send();
     }
-  }
-
-  async deleteAll(req: Request, res: Response) {
-    data.splice(0, data.length);
-    res.status(204).send();
   }
 }
 
