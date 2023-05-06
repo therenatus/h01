@@ -9,6 +9,9 @@ type Message = {
 
 class VideosService {
   async getOne(req: Request, res: Response<IVideo>): Promise<Response<IVideo>> {
+    if (!req.params.id) {
+      return res.status(200).send();
+    }
     const video = data.find((video) => video.id === +req.params.id);
     if (!video) {
       return res.status(404).send();
