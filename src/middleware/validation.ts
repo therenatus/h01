@@ -27,12 +27,15 @@ export const CreateVideoValidation = (
         field: "author",
       });
     }
-    if (!validationFormat(availableResolutions)) {
-      message.push({
-        message: "Invalid available format",
-        field: "availableResolutions",
-      });
+    if (availableResolutions) {
+      if (!validationFormat(availableResolutions)) {
+        message.push({
+          message: "Invalid available format",
+          field: "availableResolutions",
+        });
+      }
     }
+
     if (message.length) {
       return res.status(400).send({ errorsMessages: message });
     }
@@ -86,11 +89,13 @@ export const UpdateVideoValidation = (
         field: "publicationDate",
       });
     }
-    if (!validationFormat(availableResolutions)) {
-      message.push({
-        message: "Invalid available format",
-        field: "availableResolutions",
-      });
+    if (availableResolutions) {
+      if (!validationFormat(availableResolutions)) {
+        message.push({
+          message: "Invalid available format",
+          field: "availableResolutions",
+        });
+      }
     }
     if (message.length) {
       return res.status(400).send({ errorsMessages: message });

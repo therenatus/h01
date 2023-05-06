@@ -33,6 +33,7 @@ export const validateDateTime = (req: string): boolean => {
 };
 
 export const validationFormat = (req: string[]): boolean => {
+  console.log(req);
   const validFormat = [
     "P144",
     "P240",
