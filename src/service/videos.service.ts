@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { IVideo } from "../types/videoType";
 
-const data: IVideo[] = [];
+let data: IVideo[] = [];
 
 type Message = {
   message: string;
@@ -63,6 +63,7 @@ class VideosService {
     }
     const newVideos = data.filter((video) => video.id !== +req.params.id);
     if (data.length > newVideos.length) {
+      data = newVideos;
       res.status(204).send();
     } else {
       res.status(404).send();
