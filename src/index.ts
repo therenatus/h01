@@ -12,7 +12,7 @@ const app: Express = express();
 
 app.use(express.json());
 
-app.use("/", router);
+app.use("/api", router);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
