@@ -15,6 +15,5 @@ router.get("/:id", service.getOne);
 router.put("/:id", UpdateVideoValidation, service.updateOne);
 
 router.delete("/:id", service.deleteOne);
-router.delete("/all-data", service.deleteAll);
 
 export default router;

@@ -8,13 +8,13 @@ type Message = {
 };
 
 class VideosService {
-  async getOne(req: Request, res: Response<IVideo>): Promise<Response<IVideo>> {
+  async getOne(req: Request, res: Response) {
     if (!req.params.id) {
-      return res.status(200).send();
+      return res.status(404).send("");
     }
     const video = data.find((video) => video.id === +req.params.id);
     if (!video) {
-      return res.status(404).send();
+      return res.status(404).send("");
     }
     return res.status(200).send(video);
   }
@@ -39,7 +39,7 @@ class VideosService {
     video.id = id;
     video.publicationDate = new Date(date.getTime() + 86400000).toISOString();
     data.push(video);
-    return res.status(204).send(video);
+    return res.status(201).send(video);
   }
 
   async updateOne(req: Request, res: Response) {
