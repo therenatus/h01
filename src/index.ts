@@ -1,6 +1,6 @@
-import express, { Express } from 'express';
-import dotenv from 'dotenv';
-import router from './controller/index';
+import express, { Express } from "express";
+import dotenv from "dotenv";
+import router from "./controller/index";
 
 dotenv.config();
 if (!process.env.PORT) {
@@ -12,7 +12,7 @@ const app: Express = express();
 
 app.use(express.json());
 
-app.use('/api', router);
+app.use("/", router);
 
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
