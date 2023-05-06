@@ -42,12 +42,12 @@ export const validationFormat = (req: string[]): boolean => {
     "P720",
     "P1080",
     "P1440",
-    "P216",
+    "P2160",
   ];
   let valid: boolean = true;
   req.map((item) => {
     if (validFormat.includes(item)) {
-      return (valid = false);
+      valid = false;
     }
   });
   return valid;
