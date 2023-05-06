@@ -9,11 +9,11 @@ type Message = {
 
 class VideosService {
   async getOne(req: Request, res: Response<IVideo>): Promise<Response<IVideo>> {
-    const video: IVideo[] = data.filter((video) => video.id === +req.params.id);
-    if (!video.length) {
+    const video = data.find((video) => video.id === +req.params.id);
+    if (!video) {
       return res.status(404).send();
     }
-    return res.status(200).send(video[0]);
+    return res.status(200).send(video);
   }
 
   async getAll(
@@ -50,17 +50,20 @@ class VideosService {
   }
 
   async deleteOne(req: Request, res: Response) {
-    const newVideos = data.filter((video) => video.id !== +req.params.id);
-
-    if (data.length > newVideos.length) {
-      res.send(204);
+    if (!req.params.id) {
+      res.status(404).send();
     }
-    res.send(404);
+    const newVideos = data.filter((video) => video.id !== +req.params.id);
+    if (data.length > newVideos.length) {
+      res.status(204).send();
+    } else {
+      res.status(404).send();
+    }
   }
 
   async deleteAll(req: Request, res: Response) {
     data.splice(0, data.length);
-    return res.status(204);
+    res.status(204).send();
   }
 }
 

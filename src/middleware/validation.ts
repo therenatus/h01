@@ -27,7 +27,7 @@ export const CreateVideoValidation = (
       });
     }
     if (message.length) {
-      return res.status(400).send({ errorsMessage: message });
+      return res.status(400).send({ errorsMessages: message });
     }
   }
   next();
@@ -74,7 +74,7 @@ export const UpdateVideoValidation = (
       });
     }
     if (message.length) {
-      return res.status(400).send({ errorsMessage: message });
+      return res.status(400).send({ errorsMessages: message });
     }
   }
   next();
