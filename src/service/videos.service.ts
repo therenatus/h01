@@ -31,35 +31,31 @@ class VideosService {
     const video: IVideo = req.body;
     const id = +new Date();
     video.createdAt = date.toISOString();
-    video.canBeDownloaded = true;
+    video.canBeDownloaded = false;
     video.minAgeRestriction = null;
     video.id = id;
     video.publicationDate = new Date(date.getTime() + 86400000).toISOString();
     data.push(video);
-    return res.status(201).send(video);
+    return res.status(204).send(video);
   }
 
-  async updateOne(
-    req: Request,
-    res: Response<IVideo>
-  ): Promise<Response<IVideo>> {
-    const videoId = data.findIndex((video) => video.id === +req.params.id);
-    const video = data[videoId];
-    if (!video) {
-      return res.status(404).send();
+  async updateOne(req: Request, res: Response) {
+    const video = data.find((video) => video.id === +req.params.id);
+    if (video) {
+      Object.assign(video, req.body);
+      res.status(204).send();
+    } else {
+      res.status(404).send();
     }
-    const updateVideo = { ...video, ...req.body };
-    data.splice(videoId, 1, updateVideo);
-    return res.status(201).send(updateVideo);
   }
 
   async deleteOne(req: Request, res: Response) {
-    const videoId = data.findIndex((video) => video.id === +req.params.id);
-    if (!videoId) {
-      return res.status(404).send("Not Found");
+    const newVideos = data.filter((video) => video.id !== +req.params.id);
+
+    if (data.length > newVideos.length) {
+      res.send(204);
     }
-    data.splice(videoId, 1);
-    return res.status(204);
+    res.send(404);
   }
 
   async deleteAll(req: Request, res: Response) {
