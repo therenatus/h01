@@ -30,12 +30,17 @@ class VideosService {
     req: Request,
     res: Response<IVideo | Message>
   ): Promise<Response<IVideo | Message>> {
+    const { canBeDownloaded, minAgeRestriction, availableResolutions } =
+      req.body;
     const date = new Date();
     const video: IVideo = req.body;
     const id = +new Date();
     video.createdAt = date.toISOString();
-    video.canBeDownloaded = false;
-    video.minAgeRestriction = null;
+    video.canBeDownloaded = canBeDownloaded ? canBeDownloaded : false;
+    video.minAgeRestriction = minAgeRestriction ? minAgeRestriction : null;
+    video.availableResolutions = availableResolutions
+      ? availableResolutions
+      : null;
     video.id = id;
     video.publicationDate = new Date(date.getTime() + 86400000).toISOString();
     data.push(video);
@@ -54,7 +59,7 @@ class VideosService {
 
   async deleteOne(req: Request, res: Response) {
     if (!req.params.id) {
-      res.status(200).send();
+      res.status(404).send();
     }
     const newVideos = data.filter((video) => video.id !== +req.params.id);
     if (data.length > newVideos.length) {
